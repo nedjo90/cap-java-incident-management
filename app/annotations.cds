@@ -110,51 +110,13 @@ annotate ProcessorService.Incidents with {
 annotate ProcessorService.Incidents with {
     urgency @(
         Common.Label : '{i18n>Urgency}',
-        Common.ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'Status',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : urgency_code,
-                    ValueListProperty : 'code',
-                },
-            ],
-        },
         Common.ValueListWithFixedValues : true,
         Common.Text : urgency.descr,
-    )
+        )
 };
 
 annotate ProcessorService.Status with {
     code @Common.Text : descr
-};
-
-annotate ProcessorService.Incidents with {
-    title @(
-        Common.Text : customer.name,
-        Common.Text.@UI.TextArrangement : #TextOnly,
-        Common.ValueList : {
-            $Type : 'Common.ValueListType',
-            CollectionPath : 'Customers',
-            Parameters : [
-                {
-                    $Type : 'Common.ValueListParameterInOut',
-                    LocalDataProperty : title,
-                    ValueListProperty : 'ID',
-                },
-                {
-                    $Type : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'name',
-                },
-                {
-                    $Type : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty : 'email',
-                },
-            ],
-        },
-        Common.ValueListWithFixedValues : true,
-    )
 };
 
 annotate ProcessorService.Customers with {
@@ -186,4 +148,26 @@ annotate ProcessorService.Incidents.conversation with @(
     UI.LineItem #Conversation2 : [
     ],
 );
+
+annotate ProcessorService.Incidents with {
+    customer @(
+        Common.Text : customer.name,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+        Common.ValueListWithFixedValues : true,
+)};
+
+annotate ProcessorService.Customers with {
+    name @(
+        Common.Text : ID,
+        Common.Text.@UI.TextArrangement : #TextOnly,
+    )
+};
+
+annotate ProcessorService.Urgency with {
+    name @Common.Text : descr
+};
+
+annotate ProcessorService.Urgency with {
+    code @Common.Text : descr
+};
 
